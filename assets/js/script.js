@@ -97,8 +97,8 @@ function calculateCorrectAnswer(){
         return[operand1 - operand2, "substract"];
 
     }else if(operator === "/"){
-        return[operand1 / operand2, "division"];
-
+        return [Math.floor(operand1 / operand2), "division"];
+        
     }else {
         alert(`unimplemented error: ${operator}`);
         throw `unimplemented error: ${operator}. Aborting`;
@@ -141,7 +141,17 @@ function displaymultiplyQuestion(operand1, operand2){
     document.getElementById("operator").textContent = "x";
 }
 function displayDivisionQuestion(operand1, operand2){
-    document.getElementById("operand1").textContent = operand1;
-    document.getElementById("operand2").textContent = operand2;
+    if (operand1 < operand2) {
+        // Swap the operands if the first one is smaller
+        [operand1, operand2] = [operand2, operand1];
+      }
+      
+      // Calculate the quotient, rounding down to the nearest whole number
+      const quotient = Math.floor(operand1 / operand2);
+      // Calculate the dividend using the quotient and the second operand
+  const dividend = quotient * operand2;
+  
+  document.getElementById("operand1").textContent = dividend;
+  document.getElementById("operand2").textContent = operand2;
     document.getElementById("operator").textContent = "/";
 }
